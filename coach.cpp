@@ -17,10 +17,14 @@ Coach::Coach(){
     // id = ++objCounter;
 }
 
-Coach::Coach(string name, string surname): Employee(name, surname){
+Coach::Coach(string name, string surname, bool isRealCoach): Employee(name, surname){
     this->name = name;
     this->surname = surname;
-    id = ++objCounter;
+
+    if (isRealCoach) {
+
+        id = ++objCounter;
+    }
 }
 
 Coach::~Coach(){
@@ -96,7 +100,7 @@ void Coach::readData(const string file_name) {
 
     file.close();
 
-    cout << "Coach::readData: " << result.size() << " rows are loaded successfully from " << file_name << "." << endl;
+    // cout << "Coach::readData: " << result.size() << " rows are loaded successfully from " << file_name << "." << endl;
 
     for (int i = 0; i < result.size(); i++) {
 

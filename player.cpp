@@ -22,9 +22,13 @@ Player::Player()
     //id = ++objCounter;
 }
 
-Player::Player(string name, string surname) : Employee(name, surname)
+Player::Player(string name, string surname, bool isRealPlayer) : Employee(name, surname)
 {
-    id = ++objCounter;
+    if (isRealPlayer) {
+
+        id = ++objCounter;
+    }
+    
     this->name = generateRandomName(name);
     this->surname = generateRandomSurname(surname);
     this->age = generateAge();
@@ -186,7 +190,7 @@ void Player::readData(const string file_name_n, const string file_name_s) {
 
     file.close();
 
-    cout << "Player::readData: " << Player::playerNamesData.size() << " rows are loaded successfully from " << file_name_n << "." << endl;
+    // cout << "Player::readData: " << Player::playerNamesData.size() << " rows are loaded successfully from " << file_name_n << "." << endl;
 
 
     file.open(file_name_s, ios::in);
@@ -206,9 +210,8 @@ void Player::readData(const string file_name_n, const string file_name_s) {
 
     file.close();
 
-    cout << "Player::readData: " << Player::playerSurnamesData.size() << " rows are loaded successfully from " << file_name_s << "." << endl;
-    objCounter--;
-
+    // cout << "Player::readData: " << Player::playerSurnamesData.size() << " rows are loaded successfully from " << file_name_s << "." << endl;
+    // objCounter--;
 }
 
 void Player::clearData() {
@@ -228,7 +231,20 @@ void Player::print() const {
         << std::setfill(' ') << setw(8) << left << uniform_number << " "
         << std::setfill(' ') << setw(8) << left << performance << " "
         << std::setfill(' ') << setw(8) << left << position << endl;
+}
 
+void Player::printDetailed() const {
+
+    cout << setfill(' ') << setw(15) << left << "Name" << " "
+        << setfill(' ') << setw(15) << left << "Surname" << " "
+        << setfill(' ') << setw(8) << left << "Age" << " "
+        << setfill(' ') << setw(8) << left << "Kit" << " "
+        << setfill(' ') << setw(8) << left << "Avg." << " "
+        << setfill(' ') << setw(8) << left << "Pos" << endl;
+
+    cout << "----" << "            " << "-------" << "         " << "---" << "      " << "---" << "      " << "---" << "      " << "---" << endl;
+
+    print();
 }
 
 void Player::printData() const {

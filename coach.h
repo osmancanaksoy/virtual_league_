@@ -8,17 +8,18 @@
 using namespace std;
 
 class Coach: public Employee {
-private:
 
+private:
     static Coach* instance;
     static int objCounter;
     int id;
 
     static vector<string> coachNamesData;
     static vector<string> coachSurnamesData;
+
 public:
     Coach();
-    Coach(string name, string surname);
+    Coach(string name, string surname, bool isRealCoach = false);
     ~Coach();
 
     static Coach* const getInstance();

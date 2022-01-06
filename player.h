@@ -31,7 +31,7 @@ private:
 
 public:
     Player();
-    Player(string name, string surname);
+    Player(string name, string surname, bool isRealPlayer = false);
     ~Player();
 
     static Player* const getInstance();
@@ -66,6 +66,7 @@ public:
     void readData(const string file_name_n, const string file_name_s);
     void clearData();
     void print() const;
+    void printDetailed() const;
     void printData() const;
 };
 

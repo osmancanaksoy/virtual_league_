@@ -8,12 +8,13 @@
 
 using namespace std;
 
-class Employee
-{
+class Employee {
+
 protected:
     string name;
     string surname;
     int age;
+
 public:
     Employee();
     Employee(string name, string surname);

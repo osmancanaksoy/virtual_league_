@@ -10,11 +10,6 @@
 
 Team* Team::instance = 0;
 int Team::objCounter = 0;
-double Team::average_perf = 0;
-double Team::average_age = 0;
-double Team::perf_D = 0;
-double Team::perf_MF = 0;
-double Team::perf_F = 0;
 
 
 vector<string> Team::teamNamesData;
@@ -32,7 +27,7 @@ Team::Team() {
     //cout << "Constructor calisti" << " " << "ObjCounter: " << objCounter << endl;
 }
 
-Team::Team(Coach coach, vector<Player> players, Formations formation) {
+Team::Team(Coach coach, vector<Player> players, Formations formation, bool isRealTeam) {
 
     this->name = generateTeamName(name);
     this->abbreviation = generateAbbrevation(name);
@@ -40,7 +35,11 @@ Team::Team(Coach coach, vector<Player> players, Formations formation) {
     this->players = players;
     setFormation(formation);
     //this->average_perf = calculatePerf();
-    id = ++objCounter;
+
+    if (isRealTeam) {
+
+        id = ++objCounter;
+    }
 }
 
 Team::~Team() {
@@ -94,7 +93,37 @@ void Team::setFormation(Formations formation) {
         cout << "Team::setFormation: Invalid formation information..!" << endl;
         exit(EXIT_FAILURE);
         break;
-    }  
+    }
+}
+
+string Team::getFormation() {
+
+    switch (formation) {
+
+    case F_442:
+
+        return "4-4-2";
+
+    case F_433:
+
+        return "4-3-3";
+
+    case F_451:
+
+        return "4-5-1";
+
+    case F_352:
+
+        return "3-5-2";
+
+    case F_343:
+
+        return "3-4-3";
+
+    default:
+        cout << "Team::setFormation: Invalid formation information..!" << endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 Team* const Team::getInstance() {
@@ -156,20 +185,20 @@ void Team::calculatePerf() {
     // r_min = 60B - A;
 
     int r_min;
-    int A;
-    int B;
+    double A;
+    double B;
 
     for (int i = 0; i < players.size(); i++) {
 
         if (i == 0) {
-            players[0].setPerformance(100);
-            average_perf = 100;
+            players[i].setPerformance(100);
+            avg_perf = 100;
             continue;
         }
 
-        A = average_perf * i;
+        A = avg_perf * i;
         B = i + 1;
-        r_min = ((60 * B) - A);
+        r_min = round(((60 * B) - A));
 
         if (r_min < 60) {
             r_min = 60;
@@ -181,10 +210,20 @@ void Team::calculatePerf() {
         int random = (rand() % (max - (min + 1)) + min);
         players[i].setPerformance(random);
 
-        average_perf = (double)(A + random) / B;
-        avg_perf_object = average_perf;
-
+        avg_perf = (A + random) / B;
     }
+}
+
+void Team::reCalculatePerf() {
+
+    double perf_sum = 0;
+
+    for (int i = 0; i < players.size(); i++) {
+
+        perf_sum += players[i].getPerformance();
+    }
+
+    avg_perf = perf_sum / players.size();
 }
 
 void Team::calculateDPerf() {
@@ -201,9 +240,6 @@ void Team::calculateDPerf() {
     }
 
     perf_D /= i;
-
-    perf_D_object = perf_D;
-
 }
 
 void Team::calculateMFPerf() {
@@ -220,9 +256,6 @@ void Team::calculateMFPerf() {
     }
 
     perf_MF /= i;
-
-    perf_MF_object = perf_MF;
-
 }
 
 void Team::calculateFPerf() {
@@ -239,9 +272,6 @@ void Team::calculateFPerf() {
     }
 
     perf_F /= i;
-
-    perf_F_object = perf_F;
-
 }
 
 void Team::calculateAvgAge() {
@@ -251,20 +281,20 @@ void Team::calculateAvgAge() {
     // r_min = B - A;
 
     int r_min;
-    int A;
-    int B;
+    double A;
+    double B;
 
     for (int i = 0; i < players.size(); i++) {
 
         if (i == 0) {
-            players[0].setAge(32);
-            average_age = 32;
+            players[i].setAge(32);
+            avg_age = 32;
             continue;
         }
 
-        A = average_age * i;
+        A = avg_age * i;
         B = i + 1;
-        r_min = ((25 * B) - A);
+        r_min = round(((25 * B) - A));
 
         if (r_min < 25) {
             r_min = 25;
@@ -276,39 +306,56 @@ void Team::calculateAvgAge() {
         int random = (rand() % (max - (min + 1)) + min);
         players[i].setAge(random);
 
-        average_age = (double)(A + random) / B;
-        avg_age_object = average_age;
-
+        avg_age = (A + random) / B;
     }
-
 }
 
 void Team::calculateGD() {
     GD = GF - GA;
 }
 
+vector<string> const Team::getTeamNamesData() {
+
+    return teamNamesData;
+}
+
 string Team::getName() const {
     return name;
 }
 
+string Team::getAbbreviation() const {
+
+    return abbreviation;
+}
+
+string Team::getCoachName() const {
+
+    return coach.getName();
+}
+
+string Team::getCoachSurname() const {
+
+    return coach.getSurname();
+}
+
 double Team::getTeamAgeAvg() const {
-    return avg_age_object;
+    return avg_age;
 }
 
 double Team::getTeamPerf() const {
-    return avg_perf_object;
+    return avg_perf;
 }
 
 double Team::getDPerf() const {
-    return perf_D_object;
+    return perf_D;
 }
 
 double Team::getMFPerf() const {
-    return perf_MF_object;
+    return perf_MF;
 }
 
 double Team::getFPerf() const {
-    return perf_F_object;
+    return perf_F;
 }
 
 int Team::getGF() const {
@@ -338,6 +385,11 @@ int Team::getLose() const {
 
 int Team::getPoint() const {
     return pts;
+}
+
+vector<Player>& Team::getPlayers() {
+
+    return players;
 }
 
 void Team::setTeamUniformNumbers() {
@@ -395,7 +447,7 @@ void Team::readData(const string file_name) {
 
     file.close();
 
-    cout << "Team::readData: " << result.size() << " rows are loaded successfully from " << file_name << "." << endl;
+    // cout << "Team::readData: " << result.size() << " rows are loaded successfully from " << file_name << "." << endl;
 
     for (int i = 0; i < result.size(); i++) {
 
@@ -414,8 +466,8 @@ void Team::clearData() {
 void Team::print() {
 
     cout << "**********" << name << " " << "(" << abbreviation << ")" << " " << "Coach: " << coach.getName() << " " << coach.getSurname() << "**********" << endl;
-    cout << "Formation: " << formation << " " << "Average Perf: " << fixed << setprecision(2) << avg_perf_object << " " << "Average Age: " << avg_age_object << " " <<
-        "Average D: " << perf_D_object << " " << "Average MF: " << perf_MF_object << " " << "Average F: " << perf_F_object << endl 
+    cout << "Formation: " << getFormation() << " " << "Average Perf: " << fixed << setprecision(2) << avg_perf << " " << "Average Age: " << avg_age << " " <<
+        "Average D: " << perf_D << " " << "Average MF: " << perf_MF << " " << "Average F: " << perf_F << endl 
         << "GF: " << GF << " " << "GA: " << GA << " " << "GD: " << getGD() << endl;
 
     cout << setfill(' ') << setw(15) << left << "Name" << " "
