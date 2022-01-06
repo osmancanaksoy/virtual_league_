@@ -20,9 +20,9 @@ using namespace std;
 
 int main() {
 
-	begin();
-	init();
-	start();
+	begin();   // Prepare datas
+	init();    // It inits classes
+	start();   // It shows the Virtual League welcome screen
 
 	return 0;
 }

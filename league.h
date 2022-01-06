@@ -41,10 +41,15 @@ struct SinglyLinkedList {
 		SinglyNode* first = head;
 		while (first != NULL)
 		{
-			cout << first->match_ID << " " << first->team_one->getName() << " - " << first->team_two->getName() << endl;
-			first = first->next;
+			for (int i = 0; i < Team::getTeamNamesData().size(); i++) {
+				cout << "--------------------" << i + 1 << ". Week Fixture" << "--------------------" << endl;
+				for (int j = 0; j < Team::getTeamNamesData().size() / 2; j++) {
+					cout << first->match_ID << " " << first->team_one->getName() << " - " << first->team_two->getName() << endl;
+					first = first->next;
+				}
+				cout << endl;
+			}
 		}
-
 	}
 
 	void makeMatch(Team* team_one, Team* team_two);

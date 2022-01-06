@@ -22,11 +22,14 @@ const static int MENU_TEAM_SUBMENU_3 = (1 << 9);    // 512
 const static int MENU_LEAGUE_SUBMENU_1 = (1 << 10); // 1024
 const static int MENU_LEAGUE_SUBMENU_2 = (1 << 11); // 2048
 const static int MENU_LEAGUE_SUBMENU_3 = (1 << 12); // 4096
-const static int MENU_LEAGUE_SUBMENU_4 = (1 << 13); // 4096
+const static int MENU_LEAGUE_SUBMENU_4 = (1 << 13); // 8192
+const static int MENU_LEAGUE_SUBMENU_5 = (1 << 14);
 static int MENU_FLAG = MENU_MAIN;
 
 static bool splash = true;
 static int choice;
+
+static bool isLeagueStarted = false;
 
 void func_MENU_MAIN();
 void func_MENU_PLAYER();
@@ -41,6 +44,7 @@ void func_MENU_LEAGUE_SUBMENU_1();
 void func_MENU_LEAGUE_SUBMENU_2();
 void func_MENU_LEAGUE_SUBMENU_3();
 void func_MENU_LEAGUE_SUBMENU_4();
+void func_MENU_LEAGUE_SUBMENU_5();
 
 static League* league;
 
@@ -59,6 +63,7 @@ void leaguePrintStandingsDialog();
 void leaguePrintMatchesDialog();
 void leagueSearchMatchByIdDialog();
 void leagueSearchMatchByNameDialog();
+void leagueMakeMatchesDialog();
 
 string utils_toLower(const string& s);
 

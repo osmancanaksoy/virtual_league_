@@ -148,19 +148,56 @@ void func_MENU_TEAM_SUBMENU_3() {
 
 void func_MENU_LEAGUE() {
 
-	cout << "---- League Menu ---" << endl;
-	cout << "0. " << "Main Menu" << endl;
-	cout << "1. " << "Print standings" << endl;
-	cout << "2. " << "Print matches" << endl;
-	cout << "3. " << "Search match by id" << endl;
-	cout << "4. " << "Search by team name" << endl;
+	if (!isLeagueStarted) {
+
+		cout << "---- League Menu ---" << endl;
+		cout << "0. " << "Main Menu" << endl;
+		cout << "2. " << "Print matches" << endl;
+		cout << "3. " << "Search match by id" << endl;
+		cout << "4. " << "Search by team name" << endl;
+		cout << "5. " << "Make Matches" << endl;
+	}
+
+	else {
+
+		cout << "---- League Menu ---" << endl;
+		cout << "0. " << "Main Menu" << endl;
+		cout << "1. " << "Print standings" << endl;
+		cout << "2. " << "Print matches" << endl;
+		cout << "3. " << "Search match by id" << endl;
+		cout << "4. " << "Search by team name" << endl;
+	}
+
 
 	while (true) {
 
 		cout << "Choice: ";
 		cin >> choice;
 
-		if (choice >= 0 && choice <= 4) {
+		if (!isLeagueStarted && (choice == 0 || (choice >= 2 && choice <= 5))) {
+
+			if (choice == 0) {
+
+				MENU_FLAG = MENU_MAIN;
+				system("cls");
+				utils_print_splash_screen();
+				break;
+			}
+
+			if (choice == 5) {
+
+				cout << "Lig basladi..." << endl;
+				
+				isLeagueStarted = true;
+			}
+
+			MENU_FLAG = 1 << (choice + 9);
+			system("cls");
+			utils_print_splash_screen();
+			break;
+		}
+
+		else if (isLeagueStarted && (choice == 0 || choice <= 4)) {
 
 			if (choice == 0) {
 
@@ -175,6 +212,7 @@ void func_MENU_LEAGUE() {
 			utils_print_splash_screen();
 			break;
 		}
+
 		else {
 
 			cout << "Wrong choice..!" << endl;
@@ -206,6 +244,13 @@ void func_MENU_LEAGUE_SUBMENU_3() {
 void func_MENU_LEAGUE_SUBMENU_4() {
 
 	leagueSearchMatchByNameDialog();
+
+	MENU_FLAG = MENU_LEAGUE;
+}
+
+void func_MENU_LEAGUE_SUBMENU_5() {
+
+	leagueMakeMatchesDialog();
 
 	MENU_FLAG = MENU_LEAGUE;
 }
@@ -361,6 +406,12 @@ void start() {
 		case MENU_LEAGUE_SUBMENU_4:
 
 			func_MENU_LEAGUE_SUBMENU_4();
+
+			break;
+
+		case MENU_LEAGUE_SUBMENU_5:
+
+			func_MENU_LEAGUE_SUBMENU_5();
 
 			break;
 
@@ -521,26 +572,31 @@ void teamSetFormationDialog() {
 			case 0:
 
 				team->setFormation(F_442);
+				team->print();
 
 				return;
 
 			case 1:
 				team->setFormation(F_433);
+				team->print();
 
 				return;
 
 			case 2:
 				team->setFormation(F_451);
+				team->print();
 
 				return;
 
 			case 3:
 				team->setFormation(F_352);
+				team->print();
 
 				return;
 
 			case 4:
 				team->setFormation(F_343);
+				team->print();
 
 				return;
 
@@ -609,6 +665,12 @@ void leagueSearchMatchByNameDialog() {
 	}
 
 	cout << teamName << " not finded..!" << endl;
+}
+
+void leagueMakeMatchesDialog() {
+
+	
+	League::getMatchList()->match();
 }
 
 string utils_toLower(const string& s) {

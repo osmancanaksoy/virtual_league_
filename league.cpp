@@ -35,12 +35,12 @@ void League::generateFixture() {
 		teamlist_copy.push_back(&teamList[i]);
 	}
 
-	int random = rand() % 19;
+	int random = rand() % teamlist_copy.size();
 	Team* fixed_team = teamlist_copy[random];
 
 	teamlist_copy.erase(teamlist_copy.begin() + random);
 
-	int k = 0;
+	int k = 1;
 
 	for (int i = 0; i < teamlist_copy.size(); i++) {
 
@@ -56,7 +56,6 @@ void League::generateFixture() {
 		teamlist_copy.push_back(teamlist_copy[0]);   // Rotate
 		teamlist_copy.erase(teamlist_copy.begin());  // Right
 	}
-	matchList.match();
 }
 
 void SinglyLinkedList::makeMatch(Team* team_one, Team* team_two) {
@@ -121,22 +120,25 @@ void SinglyLinkedList::makeMatch(Team* team_one, Team* team_two) {
 	*away -= team_home_goals;
 
 	if (team_home_goals > team_away_goals) {
-		//cout << home->getName() << ": " << team_home_goals << " - " << away->getName() << ": " << team_away_goals << endl;
-		//cout << "Kazanan Takim: " << home->getName() << endl;
+		cout << home->getName() << " " << team_home_goals << " - " << team_away_goals << " " << away->getName() << endl;
+		cout << home->getName() << " WIN..!" << endl;
+		cout << "-------------------------------------------------------" << endl;
 		++(*home);
 		(*away)--;
 	}
 	else if (team_home_goals < team_away_goals) {
 
-		//cout << home->getName() << ": " << team_home_goals << " - " << away->getName() << ": " << team_away_goals << endl;
-		//cout << "Kazanan Takim: " << away->getName() << endl;
+		cout << home->getName() << " " << team_home_goals << " - " << team_away_goals << " " << away->getName() << endl;
+		cout << away->getName() << " WIN..!" << endl;
+		cout << "-------------------------------------------------------" << endl;
 		++(*away);
 		(*home)--;
 	}
 	else if (team_home_goals == team_away_goals) {
 
-		//cout << home->getName() << ": " << team_home_goals << " - " << away->getName() << ": " << team_away_goals << endl;
-		//cout << "Mac Sonucu: Berabere" << endl;
+		cout << home->getName() << " " << team_home_goals << " - " << team_away_goals << " " << away->getName() << endl;
+		cout << "DRAW..!" << endl;
+		cout << "-------------------------------------------------------" << endl;
 		(*home)++;
 		(*away)++;
 	}

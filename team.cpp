@@ -406,7 +406,7 @@ void Team::setTeamUniformNumbers() {
         bool isNumberFinded = false;
 
         while (!isNumberFinded) {
-            int number = rand() % 99;
+            int number = (rand() % 99) + 1;
             if (bitmapUniformNumber[number] == false) {
                 bitmapUniformNumber[number] = true;
                 players[i].setUniformNumber(number);
