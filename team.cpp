@@ -387,9 +387,9 @@ int Team::getPoint() const {
     return pts;
 }
 
-vector<Player>& Team::getPlayers() {
+vector<Player>* Team::getPlayers() {
 
-    return players;
+    return &players;
 }
 
 void Team::setTeamUniformNumbers() {

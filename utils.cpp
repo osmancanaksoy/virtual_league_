@@ -296,6 +296,12 @@ void init() {
 		exit(EXIT_FAILURE);
 	}
 
+	else if ((numberOfTeams % 2) != 0) {
+
+		cout << "Number of teams must be 2*n" << endl;
+
+		exit(EXIT_FAILURE);
+	}
 
 
 	for (int i = 0; i < numberOfTeams; i++) {
@@ -465,8 +471,8 @@ void playerModifyPerformanceDialog() {
 
 
 		double perf_old = player->getPerformance();
-		double A = (team->getTeamPerf() * team->getPlayers().size()) - perf_old;
-		double B = team->getPlayers().size();
+		double A = (team->getTeamPerf() * ( * (team->getPlayers())).size()) - perf_old;
+		double B = (*(team->getPlayers())).size();
 		double perf_min = round(((60 * B) - A));
 
 		if (perf_min < 60) {
@@ -653,15 +659,20 @@ void leagueSearchMatchByNameDialog() {
 	cout << "Team name to search: ";
 	getline(cin >> ws, teamName);
 
+	int a = 5;
+
 	vector<SinglyNode> matches = league->getMatchList()->getMatchesByName(teamName);
 
 	if (matches.size() != 0) {
 
 		for (int i = 0; i < matches.size(); i++) {
 
-			matches[i].team_one->print();
-			matches[i].team_two->print();
+			cout << matches[i].team_one->getName() << " (" << matches[i].team_one->getAbbreviation() << ")"
+				<< " - "
+				<< matches[i].team_two->getName() << " (" << matches[i].team_two->getAbbreviation() << ")" << endl;
 		}
+
+		return;
 	}
 
 	cout << teamName << " not finded..!" << endl;

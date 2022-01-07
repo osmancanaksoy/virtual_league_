@@ -85,7 +85,7 @@ public:
     int getDraw() const;
     int getLose() const;
     int getPoint() const;
-    vector<Player>& getPlayers();
+    vector<Player>* getPlayers();
 
     
 

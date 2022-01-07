@@ -44,12 +44,12 @@ void League::generateFixture() {
 
 	for (int i = 0; i < teamlist_copy.size(); i++) {
 
-		//cout << "--------" << (i + 1) << ". Hafta Fiksturu" << "--------" << endl;
-		//cout << "1. Mac" << " " <<  fixed_team->getName() << " - " << teamlist_copy[0]->getName() << endl;
+		// cout << "--------" << (i + 1) << ". Hafta Fiksturu" << "--------" << endl;
+		// cout << "1. Mac" << " " <<  fixed_team->getName() << " - " << teamlist_copy[0]->getName() << endl;
 		matchList.addBack(k++, fixed_team, teamlist_copy[0]);
 
 		for (int j = 0; j < (teamlist_copy.size() - 1) / 2; j++) {
-			//cout << (j + 2) << ". Mac" << " " << teamlist_copy[j + 1]->getName() << " - " << teamlist_copy[teamlist_copy.size() - 1 - j]->getName() << endl;
+			// cout << (j + 2) << ". Mac" << " " << teamlist_copy[j + 1]->getName() << " - " << teamlist_copy[teamlist_copy.size() - 1 - j]->getName() << endl;
 			matchList.addBack(k++, teamlist_copy[j + 1], teamlist_copy[teamlist_copy.size() - 1 - j]);
 
 		}
@@ -192,17 +192,17 @@ Player* League::searchPlayerByName(string& player_name, int &teamId) {
 
 	for (int i = 0; i < teamList.size(); i++) {
 
-		static vector<Player> v = teamList[i].getPlayers();
+		static vector<Player> *v = teamList[i].getPlayers();
 
-		for (int j = 0; j < v.size(); j++) {
+		for (int j = 0; j < v->size(); j++) {
 
-			string player_name_finded_lower = v[j].getName() + " " + v[j].getSurname();
+			string player_name_finded_lower = (*v)[j].getName() + " " + (*v)[j].getSurname();
 			player_name_finded_lower = utils_toLower(player_name_finded_lower);
 
 			if (player_name_lower.compare(player_name_finded_lower) == 0) {
 
 				teamId = i;
-				return &v[j];
+				return &(*v)[j];
 			}
 		}
 	}

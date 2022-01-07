@@ -41,7 +41,7 @@ struct SinglyLinkedList {
 		SinglyNode* first = head;
 		while (first != NULL)
 		{
-			for (int i = 0; i < Team::getTeamNamesData().size(); i++) {
+			for (int i = 0; i < Team::getTeamNamesData().size() - 1; i++) {
 				cout << "--------------------" << i + 1 << ". Week Fixture" << "--------------------" << endl;
 				for (int j = 0; j < Team::getTeamNamesData().size() / 2; j++) {
 					cout << first->match_ID << " " << first->team_one->getName() << " - " << first->team_two->getName() << endl;
@@ -84,20 +84,19 @@ struct SinglyLinkedList {
 	vector<SinglyNode> getMatchesByName(string teamname) {
 
 		vector<SinglyNode> matches;
-
 		SinglyNode* first = head;
 		while (first != NULL)
 		{
 
-			first = first->next;
-
 			string teamname_finded_1 = first->team_one->getName();
 			string teamname_finded_2 = first->team_two->getName();
 
-			if (teamname_finded_1.compare(teamname) == 0 || teamname_finded_2.compare(teamname)) {
+			if ((teamname_finded_1.compare(teamname) == 0) || (teamname_finded_2.compare(teamname) == 0)) {
 
 				matches.push_back(*first);
 			}
+
+			first = first->next;
 		}
 
 		return matches;
