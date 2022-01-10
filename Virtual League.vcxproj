@@ -142,6 +142,7 @@
     <Text Include="isim.txt" />
     <Text Include="soyisim.txt" />
     <Text Include="takimlar.txt" />
+    <Text Include="takimlar1.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="coach.cpp" />

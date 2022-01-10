@@ -24,6 +24,9 @@
     <Text Include="takimlar.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="takimlar1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="coach.cpp">
