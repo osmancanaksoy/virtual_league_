@@ -261,9 +261,9 @@ void begin() {
 	Player::getInstance()->clearData();
 	Team::getInstance()->clearData();
 
-	Coach::getInstance()->readData("takimlar1.txt");
+	Coach::getInstance()->readData("takimlar.txt");
 	Player::getInstance()->readData("isim.txt", "soyisim.txt");
-	Team::getInstance()->readData("takimlar1.txt");
+	Team::getInstance()->readData("takimlar.txt");
 }
 
 void init() {
@@ -281,27 +281,29 @@ void init() {
 	int numberOfTeams = t_p->getTeamNamesData().size();
 
 
-	//if (numberOfPlayerNames != numberOfPlayerSurnames) {
 
-	//	cout << "Number of player names and player surnames not equal..!" << endl;
+	// Following conditions has a bug. These needs correcting.
+	if (numberOfPlayerNames != numberOfPlayerSurnames) {
 
-	//	exit(EXIT_FAILURE);
-	//}
+		cout << "Number of player names and player surnames not equal..!" << endl;
 
-	//else if(numberOfPlayerNames != 11 * numberOfTeams) {
+		exit(EXIT_FAILURE);
+	}
+
+	else if(numberOfPlayerNames != 11 * numberOfTeams) {
 
 
-	//	cout << "numberOfPlayerNames != 11 * numberOfTeams" << endl;
+		cout << "numberOfPlayerNames != 11 * numberOfTeams" << endl;
 
-	//	exit(EXIT_FAILURE);
-	//}
+		exit(EXIT_FAILURE);
+	}
 
-	//else if ((numberOfTeams % 2) != 0) {
+	else if ((numberOfTeams % 2) != 0) {
 
-	//	cout << "Number of teams must be 2*n" << endl;
+		cout << "Number of teams must be 2*n" << endl;
 
-	//	exit(EXIT_FAILURE);
-	//}
+		exit(EXIT_FAILURE);
+	}
 
 
 	for (int i = 0; i < numberOfTeams; i++) {
