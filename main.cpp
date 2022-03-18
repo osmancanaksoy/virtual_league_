@@ -9,7 +9,6 @@ ____   ____.__         __               .__    .____
 									  KTU COM2001 Object Oriented Programming Project
 
 OSMAN CAN AKSOY - 394797
-Elif PULUKCU    - 407602
 */
 
 #include <iostream>
